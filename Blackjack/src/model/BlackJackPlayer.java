@@ -11,12 +11,13 @@ public class BlackJackPlayer implements Player {
 	}
 	
 	@Override
-	public void hit(Dealer d) {
+	public void hit(BlackJackDealer d) {
 		takeCard(d.dealCard());
 	}
 
 	@Override
-	public void stand() {
+	public void stand() 
+	{
 
 	}
 

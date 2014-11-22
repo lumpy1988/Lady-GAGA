@@ -54,6 +54,7 @@ public class BlackJackController implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String command = e.getActionCommand();
+		System.out.println(command);
 		game.update(command);
 	}
 

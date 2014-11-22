@@ -1,24 +1,32 @@
 package model;
 
 
-public class BlackJackDealer extends Dealer implements Player {
+public class BlackJackDealer implements Player {
 	
+	private Deck deck;
 	private BlackJackHand hand;
-	private PlayerType playerType = PlayerType.CPU;
+	private PlayerType playerType = PlayerType.COMPUTER;
 	
-	public BlackJackDealer(Deck<Card> d) {
-		super(d);
+	public BlackJackDealer(Deck d) 
+	{
+		deck = d;
 		hand = new BlackJackHand();
 	}
-
+	
+	public Card dealCard()
+	{
+		return deck.dealCard();
+	}
+	
 	@Override
-	public void hit(Dealer d) {
+	public void hit(BlackJackDealer d) {
 		// TODO Auto-generated method stub
 		takeCard(deck.dealCard());
 	}
 
 	@Override
-	public void stand() {
+	public void stand() 
+	{
 		
 	}
 

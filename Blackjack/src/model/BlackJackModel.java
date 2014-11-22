@@ -20,17 +20,17 @@ public class BlackJackModel implements CardGame {
 	}
 
 	@Override
-	public void setDealer(Dealer d) {
-		dealer = (BlackJackDealer) d;
+	public void setDealer(BlackJackDealer d) {
+		dealer = d;
 	}
 
 	@Override
 	public void initializeGame(int numberOfPlayers) {
-		Deck<Card> gameDeck = generateDeck();
+		Deck gameDeck = generateDeck();
 		//add user player
 		addPlayer(new BlackJackPlayer(PlayerType.USER));
 		for(int i = 0; i < numberOfPlayers - 1; i++){
-			addPlayer(new BlackJackPlayer(PlayerType.CPU));
+			addPlayer(new BlackJackPlayer(PlayerType.COMPUTER));
 		}
 		dealer = new BlackJackDealer(gameDeck);
 		//addPlayer(dealer);
@@ -50,27 +50,28 @@ public class BlackJackModel implements CardGame {
 		BlackJackCard c;
 		for(Player p : players){
 			c = (BlackJackCard) dealer.dealCard();
-			c.setFaceUp();
+			c.faceUp();
 			p.takeCard(c);			
 		}
 		c = (BlackJackCard) dealer.dealCard();
-		c.setFaceUp();
+		c.faceUp();
 		dealer.takeCard(c);
 		for(Player p : players){
 			c = (BlackJackCard) dealer.dealCard();
-			c.setFaceUp();
+			c.faceUp();
 			p.takeCard(c);			
 		}
 		c = (BlackJackCard) dealer.dealCard();
-		c.setFaceDown();
+		c.faceDown();
 		dealer.takeCard(c);
 		
 		currentPlayer = players.get(0);
 	}
 	
-	public Deck<Card> generateDeck(){
-		Deck<Card> d = new Deck<>();
-		ArrayList<Card> cards = new ArrayList<>();
+	public Deck generateDeck()
+	{
+		Deck d = new Deck();
+		ArrayList<BlackJackCard> cards = new ArrayList<BlackJackCard>();
 		for(int value = 1; value <= 13; value++){
 			cards.add(new BlackJackCard(Suit.CLUB, value));
 			cards.add(new BlackJackCard(Suit.HEART, value));

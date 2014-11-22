@@ -1,19 +1,20 @@
+/**
+ * 
+ */
 package model;
 
 import java.util.ArrayList;
 
-public class Hand<T extends Card> {
-	protected ArrayList<T> cards = new ArrayList<T>();
-	
-	public int score(){
-		int score = 0;
-		for (T card : cards) {
-			score += card.value();
-		}
-		return score;
-	}
-	
-	public void addCard(T card){
-		cards.add(card);
-	}
+/**
+ * @author Idan
+ *
+ */
+public interface Hand 
+{
+	public int score(); 
+	public ArrayList<Integer> possibleScores();	
+	public boolean busted();
+	public boolean is21();
+	public ArrayList<BlackJackCard> getCards();
+	public void addCard(BlackJackCard card);
 }

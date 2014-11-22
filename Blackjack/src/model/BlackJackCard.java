@@ -49,12 +49,12 @@ public class BlackJackCard extends Card implements Facing {
 	}
 
 	@Override
-	public void setFaceUp() {
+	public void faceUp() {
 		facing = Face.UP;
 	}
 
 	@Override
-	public void setFaceDown() {
+	public void faceDown() {
 		facing = Face.DOWN;
 	}
 
@@ -62,9 +62,6 @@ public class BlackJackCard extends Card implements Facing {
 		return cardImageLocation;
 	}
 
-//	public void setCardImage(BufferedImage cardImage) {
-//		this.cardImage = cardImage;
-//	}
 
 	public Face getFacing() {
 		return facing;

@@ -2,11 +2,14 @@ package model;
 
 import java.util.ArrayList;
 
-public class BlackJackHand extends Hand<BlackJackCard> {
+public class BlackJackHand implements Hand
+{
+	protected ArrayList<BlackJackCard> cards = new ArrayList<BlackJackCard>();
 	
-	public int score() {
+	public int score() 
+	{
 		ArrayList<Integer> scores = possibleScores();
-		int maxUnder = Integer.MAX_VALUE;
+		int maxUnder = Integer.MIN_VALUE;
 		int minOver = Integer.MAX_VALUE;
 		
 		for (int score : scores){
@@ -53,8 +56,13 @@ public class BlackJackHand extends Hand<BlackJackCard> {
 		return score() == 21;
 	}
 	
-	public ArrayList<BlackJackCard> getCards(){
+	public ArrayList<BlackJackCard> getCards()
+	{
 		return cards;
+	}
+	
+	public void addCard(BlackJackCard card){
+		cards.add(card);
 	}
 	
 }
