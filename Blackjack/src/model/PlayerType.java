@@ -1,5 +1,11 @@
+/**
+ * @author Idan , Kosta , Or , Elinor
+ */
 package model;
-
-public enum PlayerType {
-	USER, COMPUTER;
+/**
+ * PlayerType enum
+ */
+public enum PlayerType 
+{
+	USER, DEALER;
 }

@@ -1,130 +1,147 @@
+/**
+ * @author Idan , Kosta , Or , Elinor
+ */
 package model;
-
-import java.util.ArrayList;
-
-public class BlackJackModel implements CardGame {
+/**
+ * BlackJackModel Class
+ * MVS - model
+ * implements CardGame 
+ */
+public class BlackJackModel implements CardGame 
+{	
+	private BlackJackDealer dealer; 
+	private BlackJackPlayer player;
 	
-	private ArrayList<Player> players;
-	private BlackJackDealer dealer;
-	private Player currentPlayer;
-	private int currentPlayerIndex;
-	
-	public BlackJackModel(){
-		players = new ArrayList<Player>();
-		initializeGame(1);
-	}
-	
-	@Override
-	public void addPlayer(Player p) {
-		players.add(p);		
-	}
-
-	@Override
-	public void setDealer(BlackJackDealer d) {
-		dealer = d;
-	}
-
-	@Override
-	public void initializeGame(int numberOfPlayers) {
-		Deck gameDeck = generateDeck();
-		//add user player
-		addPlayer(new BlackJackPlayer(PlayerType.USER));
-		for(int i = 0; i < numberOfPlayers - 1; i++){
-			addPlayer(new BlackJackPlayer(PlayerType.COMPUTER));
-		}
-		dealer = new BlackJackDealer(gameDeck);
-		//addPlayer(dealer);
-		currentPlayerIndex = 0;
-	}
-
-	@Override
-	public void quitGame() {
-		// TODO Auto-generated method stub
-		players.clear();
-		dealer = null;
-		currentPlayer = null;
-	}
-
-	@Override
-	public void startGame() {
-		BlackJackCard c;
-		for(Player p : players){
-			c = (BlackJackCard) dealer.dealCard();
-			c.faceUp();
-			p.takeCard(c);			
-		}
-		c = (BlackJackCard) dealer.dealCard();
-		c.faceUp();
-		dealer.takeCard(c);
-		for(Player p : players){
-			c = (BlackJackCard) dealer.dealCard();
-			c.faceUp();
-			p.takeCard(c);			
-		}
-		c = (BlackJackCard) dealer.dealCard();
-		c.faceDown();
-		dealer.takeCard(c);
-		
-		currentPlayer = players.get(0);
-	}
-	
-	public Deck generateDeck()
+	/**
+	 * BlackJackModel Constructor.
+	 */
+	public BlackJackModel()
 	{
 		Deck d = new Deck();
-		ArrayList<BlackJackCard> cards = new ArrayList<BlackJackCard>();
-		for(int value = 1; value <= 13; value++){
-			cards.add(new BlackJackCard(Suit.CLUB, value));
-			cards.add(new BlackJackCard(Suit.HEART, value));
-			cards.add(new BlackJackCard(Suit.SPADE, value));
-			cards.add(new BlackJackCard(Suit.DIAMOND, value));
-		}
-		d.setDeckOfCards(cards);
-		d.shuffle();
-		return d;
+		dealer = new BlackJackDealer(d);
+		player = new BlackJackPlayer(PlayerType.USER);
+	}
+	
+	
+	/**
+	 * starts the game.
+	 */
+	@Override
+	public void startGame() 
+	{
+		dealer.initializeHand();
+		player.initializeHand();
+		dealer.getDeck().shuffle();
+		initializeGame();
 	}
 
-	public Player getCurrentPlayer() {
-		return currentPlayer;
+	/**
+	 * initialize the game in the model point of view and deal 2 cards to the dealer and the user.
+	 */
+	@Override
+	public void initializeGame() 
+	{
+		BlackJackCard a;
+		//Player first card:
+		a = dealer.dealCard();
+		a.faceUp();
+		player.takeCard(a);
+		//Dealer first card:
+		BlackJackCard b;
+		b = (BlackJackCard) dealer.dealCard();
+		b.faceUp();
+		dealer.takeCard(b);
+		//Player second card:
+		BlackJackCard c;
+		c = (BlackJackCard) dealer.dealCard();
+		c.faceUp();
+		player.takeCard(c);
+		//dealer second card - Face down:
+		BlackJackCard d;
+		d = (BlackJackCard) dealer.dealCard();
+		d.faceDown();
+		dealer.takeCard(d);		
 	}
 
-	public void setCurrentPlayer(BlackJackPlayer currentPlayer) {
-		this.currentPlayer = currentPlayer;
+	/**
+	 * return the user player
+	 */
+	public BlackJackPlayer getCurrentPlayer() 
+	{
+		return player;
+	}
+	
+	/**
+	 * sets the user player
+	 */
+	public void setCurrentPlayer(BlackJackPlayer currentPlayer) 
+	{
+		this.player = currentPlayer;
 	}
 
-	public ArrayList<Player> getPlayers() {
-		return players;
-	}
-
-	public BlackJackDealer getDealer() {
+	/**
+	 * get the dealer player
+	 */
+	public BlackJackDealer getDealer() 
+	{
 		return dealer;
 	}
 	
-	public void update(String command){
-		if (command.equals("exit")) {
-			System.exit(0);
-		}		
-		if(currentPlayer.equals(dealer)){
-			if (dealer.canHit()){
-				dealer.hit(dealer);
+	/**
+	 * check the game status of the current user
+	 * @return int. 
+	 * if the current player got busted return 0. 
+	 * if the current player got 21 return 1. 
+	 * if the current player can continue to hit return 2.
+	 */
+	public int CheckStatus (PlayerType pt)
+	{
+		BlackJackCard a;
+		a = dealer.dealCard();
+		a.faceUp();
+		if (pt.equals(PlayerType.USER))
+		{
+			if (player.isbusted())
+			{
+				return 0;
+			}
+			if (player.got21())
+			{
+				return 1;
+			}
+			else
+			{
+				return 2;	
 			}
 		}
-		else if (currentPlayer.getPlayerType() != PlayerType.USER){
-			// TODO Implement multiplyaer  
-		}
-		else {
-			if (command.equals("hit") && currentPlayer.canHit()){
-				currentPlayer.hit(dealer);
+		else
+		{
+			if (dealer.isbusted())
+			{
+				return 0;
 			}
-			else if (command.equals("stand")){
-				currentPlayer.stand();
+			if (dealer.checkSoft17() || dealer.getHand().score(pt) < 17)
+			{
+				return 2;	
 			}
-		}
-		currentPlayer = getNextPlayer();
+			else
+			{
+				return 1;
+			}
+		}	
 	}
 	
-	private Player getNextPlayer(){
-		int nextPlayerIndex = (currentPlayerIndex + 1) % players.size();
-		return players.get(nextPlayerIndex);
+	
+	/**
+	 * deal card to the current player.
+	 * @return BlackJackCard. 
+	 */
+	public BlackJackCard dealCard(PlayerType pt)
+	{
+		BlackJackCard a;	
+		a = pt.equals(PlayerType.USER) ? player.hit(dealer) : dealer.hit(dealer);
+		a.faceUp();
+		return a;
 	}
-
+	
 }

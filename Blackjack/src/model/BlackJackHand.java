@@ -1,14 +1,33 @@
+/**
+ * @author Idan , Kosta , Or , Elinor
+ */
 package model;
 
 import java.util.ArrayList;
-
+/**
+ * BlackJackHand Class
+ * implements Hand
+ */
 public class BlackJackHand implements Hand
 {
-	protected ArrayList<BlackJackCard> cards = new ArrayList<BlackJackCard>();
-	
-	public int score() 
+	protected ArrayList<BlackJackCard> cards;	
+	/**
+	 * BlackJackHand Constructor.
+	 * sets arraylist of cards
+	 */
+	public BlackJackHand()
 	{
-		ArrayList<Integer> scores = possibleScores();
+		cards = new ArrayList<BlackJackCard>();
+	}
+	
+	/**
+	 * calculate the hand score
+	 * @param gets the player type in order to know how to calculate the aces.
+	 */
+	@Override
+	public int score(PlayerType pt) 
+	{
+		ArrayList<Integer> scores = possibleScores(pt);
 		int maxUnder = Integer.MIN_VALUE;
 		int minOver = Integer.MAX_VALUE;
 		
@@ -23,45 +42,102 @@ public class BlackJackHand implements Hand
 		return maxUnder == Integer.MIN_VALUE ? minOver : maxUnder;
 	}
 	
-	public ArrayList<Integer> possibleScores(){		
+	/**
+	 * calculate all the possible hand scores.
+	 * @param gets the player type in order to know how to calculate the aces.
+	 * @return ArrayList<Integer>
+	 */
+	@Override
+	public ArrayList<Integer> possibleScores(PlayerType pt)
+	{		
 		int numAces = 0;
 		int score = 0;
 		ArrayList<Integer> possibleScores = new ArrayList<Integer>();
 		
-		for(BlackJackCard c : cards){
-			if (c.isAce()){
+		for(BlackJackCard c : cards)
+		{
+			// in case this is the first ace in the user's hand.
+			if (pt.equals(PlayerType.USER) && c.isAce() && numAces==0)
+			{
+				score += 10;
 				numAces++;
 			}
-			else {
+			// in case this isn't the first ace in the user's hand.
+			else if (pt.equals(PlayerType.DEALER) && c.isAce())
+			{
+				numAces++;
+			}
+			// in case this isn't the first ace in the user's hand or it is ace in the dealer's hand or it is other regular card.
 				score += c.value();
+		}
+		possibleScores.add(score);
+		if (pt.equals(PlayerType.DEALER))
+		{
+			for (int i = 0; i < numAces; i++)
+			{
+				score += 10;
+				possibleScores.add(score);
 			}
 		}
-		
-		possibleScores.add(score);
-		
-		for (int i = 0; i < numAces; i++){
-			score += 10;
-			possibleScores.add(score);
+		return possibleScores;	
+	}
+	
+	/**
+	 * check if the player busted
+	 * @param gets the player type in order to know how to calculate the aces.
+	 * @return boolean
+	 */
+	@Override
+	public boolean busted(PlayerType pt) 
+	{
+		return score(pt) > 21;
+	}
+	
+	/**
+	 * check if the score equals to 21
+	 * @param gets the player type in order to know how to calculate the aces.
+	 * @return boolean
+	 */
+	@Override
+	public boolean is21(PlayerType pt)
+	{
+		return score(pt) == 21;
+	}
+	
+	/**
+	 * check for aces in the hand
+	 * @return boolean true or false
+	 */
+	@Override
+	public boolean acesInHand()
+	{
+		for(BlackJackCard c : cards)
+		{
+			if (c.isAce())
+			{
+				return true;
+			}
 		}
-		
-		return possibleScores;
-		
+		return false;
 	}
 	
-	public boolean busted() {
-		return score() > 21;
-	}
-	
-	public boolean is21(){
-		return score() == 21;
-	}
-	
+	/**
+	 * return the cards
+	 * @return ArrayList<BlackJackCard>
+	 */
+	@Override
 	public ArrayList<BlackJackCard> getCards()
 	{
 		return cards;
 	}
 	
-	public void addCard(BlackJackCard card){
+	/**
+	 * add card to the arraylist.
+	 * @param BlackJackCard
+	 */
+	@Override
+	public void addCard(BlackJackCard card)
+	{
 		cards.add(card);
 	}
 	

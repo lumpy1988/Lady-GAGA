@@ -1,5 +1,11 @@
+/**
+ * @author Idan , Kosta , Or , Elinor
+ */
 package model;
-
-public enum Face {
+/**
+ * Face enum
+ */
+public enum Face 
+{
 	UP, DOWN;
 }

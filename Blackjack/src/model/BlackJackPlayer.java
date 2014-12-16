@@ -1,45 +1,86 @@
+/**
+ * @author Idan , Kosta , Or , Elinor
+ */
 package model;
-
-public class BlackJackPlayer implements Player {
-	
-	private BlackJackHand hand;
+/**
+ * BlackJackPlayer Class
+ * implements Player 
+ */
+public class BlackJackPlayer implements Player 
+{	
+	private BlackJackHand hand; 
 	private PlayerType playerType;
 	
-	public BlackJackPlayer(PlayerType pt){
+	/**
+	 * BlackJackPlayer Constructor.
+	 */
+	public BlackJackPlayer(PlayerType pt)
+	{
 		hand = new BlackJackHand();
 		playerType = pt;
 	}
 	
+	/**
+	 * clean the hand
+	 */
 	@Override
-	public void hit(BlackJackDealer d) {
-		takeCard(d.dealCard());
-	}
-
-	@Override
-	public void stand() 
+	public void initializeHand()
 	{
-
-	}
-
-	@Override
-	public void takeCard(Card c) {
-		hand.addCard((BlackJackCard) c);
-	}
-
-	@Override
-	public boolean canHit() {
-		boolean canHit = false;
-		if(!hand.busted() && !hand.is21()){
-			canHit = true;
-		}
-		return canHit;
-	}
-
-	public PlayerType getPlayerType() {
-		return playerType;
+		hand = new BlackJackHand();
 	}
 	
-	public BlackJackHand getHand(){
+	/**
+	 * commit hit in the game.
+	 * @return the blackjack card.
+	 */
+	@Override
+	public BlackJackCard hit(BlackJackDealer d) 
+	{
+		BlackJackCard bc = d.dealCard();
+		takeCard(bc);
+		return bc;
+	}
+
+	/**
+	 * add card to the dealer's hand.
+	 */
+	@Override
+	public void takeCard(BlackJackCard c) 
+	{
+		hand.addCard(c);
+	}
+
+	/**
+	 * check if the player got the score 21
+	 */
+	@Override
+	public boolean got21()
+	{
+		return hand.is21(playerType);
+	}
+	/**
+	 * check if the player got busted. his score exceeded 21
+	 */
+	@Override
+	public boolean isbusted()
+	{
+		return hand.busted(playerType);
+	}
+
+	/**
+	 * return the user's player type
+	 */
+	@Override
+	public PlayerType getPlayerType() 
+	{
+		return playerType;
+	}
+	/**
+	 * return the user's hand
+	 */
+	@Override
+	public BlackJackHand getHand()
+	{
 		return hand;
 	}
 

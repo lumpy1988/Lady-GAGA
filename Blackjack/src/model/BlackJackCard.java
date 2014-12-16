@@ -1,73 +1,151 @@
+/**
+ * @author Idan , Kosta , Or , Elinor
+ */
 package model;
 
-public class BlackJackCard extends Card implements Facing {
-	
+/**
+ * BlackJackCard Class
+ */
+public class BlackJackCard extends Card implements Facing 
+{
+	//indicate the card image name
 	private String cardImageLocation;
+	//indicate if the card is face up or down
 	private Face facing;
 	
-	public BlackJackCard(Suit s, int value) {
+	/**
+	 * BlackJackCard Constructor.
+	 * gets suit type and value.
+	 * @param  Suit, int
+	 */
+	public BlackJackCard(Suit s, int value) 
+	{
 		super(s, value);
 		cardImageLocation = CardImageLoader.getImageLocation(s, value);
+		facing = null;
 	}
 	
-	public int value(){
-		if(isAce()){
+	/**
+	 * value() function indicates what is the value of the card in blackjack game.
+	 * gets suit type and value.
+	 * @return int 
+	 */
+	protected int value()
+	{
+		//if the card is ace
+		if(isAce())
+		{
 			return 1;
 		}
-		else if (faceValue >= 11 && faceValue <= 13) {
+		//if the card is prince,queen or king
+		else if (this.getValue() >= 11 && this.getValue() <= 13) 
+		{
 			return 10;
 		}
-		else {
-			return faceValue;
+		//if the card is ten or under
+		else 
+		{
+			return this.getValue();
 		}
 	}
-		
-	public int minValue(){
-		if (isAce()){
+	
+	
+	/**
+	 * value() function indicates what is the value of the card in blackjack game.
+	 * gets suit type and value.
+	 * @return int 
+	 */
+	public int minValue()
+	{
+		if (isAce())
+		{
 			return 1;
 		}
-		else {
+		else 
+		{
 			return value();
 		}
 	}
 	
-	public int maxValue() {
-		if (isAce()){
+	public int maxValue() 
+	{
+		if (isAce())
+		{
 			return 11;
 		}
-		else {
+		else 
+		{
 			return value();
 		}
 	}
 	
-	public boolean isAce() {
-		return faceValue == 1;
+	/**
+	 * isAce()  function indicates if the card is ace or not.
+	 * checks the value.
+	 * @return boolean 
+	 */
+	public boolean isAce() 
+	{
+		return this.getValue() == 1;
 	}
 	
+	/**
+	 * isFaceCard()  function indicates if the card has face (prince/queen/king)
+	 * checks the value.
+	 * @return boolean 
+	 */
 	public boolean isFaceCard() {
-		return faceValue >= 11 && faceValue <= 13;
+		return this.getValue() >= 11 && this.getValue() <= 13;
 	}
 
+	/**
+	 * faceUp() function set the card face up.
+	 * checks the value.
+	 */
 	@Override
-	public void faceUp() {
+	public void faceUp() 
+	{
 		facing = Face.UP;
 	}
 
+	/**
+	 * faceDown() function set the card face down.
+	 * checks the value.
+	 */
 	@Override
-	public void faceDown() {
+	public void faceDown() 
+	{
 		facing = Face.DOWN;
 	}
 
-	public String getCardImageLocation() {
+	/**
+	 * getCardImageLocation() function return the image location string.
+	 * @return String 
+	 */
+	public String getCardImageLocation() 
+	{
 		return cardImageLocation;
 	}
 
 
-	public Face getFacing() {
+	/**
+	 * getFacing() function return the face position of the card (up/down).
+	 * checks the face parameter.
+	 * @return Face  
+	 */
+	public Face getFacing() 
+	{
 		return facing;
 	}
 
-	public void setFacing(Face facing) {
-		this.facing = facing;
-	}
+	/**
+	 * toString() function return string representation of the card.
+	 * @return String  
+	 */
+	public String toString()
+	{
+		return this.value() +" "+ this.getSuit();
+	}	
+
+	
 }

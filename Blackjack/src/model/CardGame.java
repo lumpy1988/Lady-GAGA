@@ -1,9 +1,12 @@
+/**
+ * @author Idan , Kosta , Or , Elinor
+ */
 package model;
-
-public interface CardGame {
-	public void addPlayer(Player p);
-	public void setDealer(BlackJackDealer d);
-	public void initializeGame(int numberOfPlayers);
-	public void quitGame();
-	public void startGame();
+/**
+ * CardGame interface
+ */
+public interface CardGame 
+{
+	public void initializeGame(); // Initialize card game
+	public void startGame(); // start card game
 }

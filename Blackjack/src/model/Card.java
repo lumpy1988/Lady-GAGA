@@ -1,26 +1,50 @@
 package model;
 
-public abstract class Card {
-	protected Suit suit;
-	private boolean available = true;
-	protected int faceValue;
+/**
+ * Card abstract Class
+ */
+public abstract class Card 
+{
+	private Suit suit; // card suit
+	private int faceValue; // face value from 1 to 13
 	
-	public Card(Suit s, int value){
+	/**
+	 * Card Constructor.
+	 * @param  Suit, int
+	 */
+	public Card(Suit s, int value)
+	{
 		faceValue = value;
 		suit = s;
 	}
 	
-	public abstract int value();
+	/**
+	 * abstract function to calculate the card value
+	 */
+	protected abstract int value();
 	
-	public boolean isAvailable(){
-		return available;
+	/**
+	 * return the suit of the card
+	 */
+	protected Suit getSuit()
+	{
+		return suit;
 	}
 	
-	public void markUnavailable(){
-		available = false;
+	/**
+	 * return the value of the card
+	 */
+	protected int getValue()
+	{
+		return faceValue;
 	}
 	
-	public void markAvailable(){
-		available = true;
+	/**
+	 * return set value  of the card
+	 */
+	protected void setValue(int value)
+	{
+		this.faceValue = value;
 	}
+	
 }
