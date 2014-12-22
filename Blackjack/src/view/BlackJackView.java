@@ -114,7 +114,6 @@ public class BlackJackView
 		
 	}
 		
-	
 	/**
 	 * sets the dealer cards graphics.
 	 * @param ArrayList<String>
@@ -141,6 +140,26 @@ public class BlackJackView
 		}
 		frmBlackjack.revalidate();
 		frmBlackjack.repaint();
+	}
+	
+	/**
+	 * #QA created new method
+	 * returns the dealer's cards as JLabels
+	 * @return ArrayList<JLabel>
+	 */
+	public ArrayList<JLabel> getDealerCards()
+	{
+		return dealerLabels;
+	}
+	
+	/**
+	 * #QA created new method
+	 * Checks if button is enabled
+	 * @return boolean
+	 */
+	public boolean isHitEnabled()
+	{
+		return btnHit.isEnabled();
 	}
 	
 	/**
@@ -470,6 +489,25 @@ public class BlackJackView
 	}
 	
 	/**
+	 * #QA created new method
+	 * Perform doClick() on the Deal button
+	 */
+	public void clickDeal()
+	{
+		btnDeal.doClick();
+	}
+	
+	/**
+	 * #QA created new method
+	 * Checks if button is enabled
+	 * @return boolean
+	 */
+	public boolean isDealEnabled()
+	{
+		return btnDeal.isEnabled();
+	}
+	
+	/**
 	 * Sets the score value graphics of the user hand.
 	 */
 	private void setUserScoreValue()
@@ -549,6 +587,15 @@ public class BlackJackView
 	}
 	
 	/**
+	 * #QA created new method
+	 * Perform doClick() on the Hit button
+	 */
+	public void clickHit()
+	{
+		btnHit.doClick();
+	}
+	
+	/**
 	 * Sets the Stand button functionality and listeners
 	 */
 	private void setStandFunc()
@@ -566,8 +613,25 @@ public class BlackJackView
 		});
 	}
 	
-
+	/**
+	 * #QA created new method
+	 * Perform doClick() on the Stand button
+	 */
+	public void clickStand()
+	{
+		btnStand.doClick();
+	}
 	
+	/**
+	 * #QA created new method
+	 * Checks if button is enabled
+	 * @return boolean
+	 */
+	public boolean isStandEnabled()
+	{
+		return btnStand.isEnabled();
+	}
+		
 	/**
 	 * sets the graphic moves of the dealer
 	 */

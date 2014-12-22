@@ -12,8 +12,13 @@ import view.BlackJackView;
  * BlackJack Class
  * Main executable class
  */
-public class Blackjack 
+public class Blackjack
 {
+	// class variables of the three main MVC components
+	protected static BlackJackModel game;
+	protected static BlackJackView view;
+	protected static BlackJackController controller;
+		
 	/**
 	* main function starts the App.
 	*/
@@ -38,12 +43,13 @@ public class Blackjack
 		
 		try
 		{
+			//#QA changed local variables to class variables
 			//creates the model instance
-			BlackJackModel game = new BlackJackModel();
+			game = new BlackJackModel();
 			//creates the view instance
-			BlackJackView view = new BlackJackView();
+			view = new BlackJackView();
 			//creates the controller instance
-			BlackJackController controller = new BlackJackController(game, view);
+			controller = new BlackJackController(game, view);
 			//set the view instance in the view.
 			view.setController(controller);	
 			//starts the graphics
@@ -55,5 +61,18 @@ public class Blackjack
 			e.printStackTrace();
 		}
 	}
+	
+	//========== Getters for testing purposes =================================
+	public static BlackJackModel getGame() {
+		return game;
+	}
 
+	public static BlackJackView getView() {
+		return view;
+	}
+
+	public static BlackJackController getController() {
+		return controller;
+	}
+	//========== End of Getters block =========================================
 }

@@ -97,6 +97,16 @@ public class BlackJackCard extends Card implements Facing
 	public boolean isFaceCard() {
 		return this.getValue() >= 11 && this.getValue() <= 13;
 	}
+	
+	/**
+	 * #QA created new method:
+	 * isFacedUp() function indicates if card is faced up or not
+	 * @return boolean
+	 */
+	public boolean isFacedUp()
+	{
+		return this.facing == Face.UP;
+	}
 
 	/**
 	 * faceUp() function set the card face up.

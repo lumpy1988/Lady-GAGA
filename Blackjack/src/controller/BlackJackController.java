@@ -38,7 +38,7 @@ public class BlackJackController
 	}
 	
 	/**
-	 * initialize() function indicates the start of a game in the controler point of view.
+	 * initialize() function indicates the start of a game in the controller point of view.
 	 * starts the game in the model and sets the image strings.
 	 */
 	public void initialize()
