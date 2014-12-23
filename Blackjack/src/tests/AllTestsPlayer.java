@@ -21,6 +21,7 @@ public class AllTestsPlayer {
 	 */
 	@Before
 	public void beforeTests(){
+		Blackjack.onTest = true;
 		Blackjack.main(null);
 		Blackjack.getView().clickDeal();
 	}

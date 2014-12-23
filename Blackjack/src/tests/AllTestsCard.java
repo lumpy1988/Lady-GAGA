@@ -21,6 +21,7 @@ public class AllTestsCard {
 	public void beforeTests(){
 		
 		// start the application and press "Deal" for each test
+		Blackjack.onTest = true;
 		Blackjack.main(null);
 		Blackjack.getView().clickDeal();
 	}

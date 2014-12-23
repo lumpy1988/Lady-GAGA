@@ -18,27 +18,30 @@ public class Blackjack
 	protected static BlackJackModel game;
 	protected static BlackJackView view;
 	protected static BlackJackController controller;
+	public static boolean onTest = false;
 		
 	/**
 	* main function starts the App.
 	*/
 	public static void main(String[] args) 
 	{
-		//Create the look and feel of the graphics
-		try {
-		    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) 
-		    {
-		        if ("Nimbus".equals(info.getName())) 
-		        {
-		            UIManager.setLookAndFeel(info.getClassName());
-		            break;
-		        }
-		    }
-		} 
-		catch (Exception e) 
-		{
-			// If Nimbus is not available:
-			e.printStackTrace();
+		if(!onTest){	
+			//Create the look and feel of the graphics
+			try {
+			    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) 
+			    {
+			        if ("Nimbus".equals(info.getName())) 
+			        {
+			            UIManager.setLookAndFeel(info.getClassName());
+			            break;
+			        }
+			    }
+			} 
+			catch (Exception e) 
+			{
+				// If Nimbus is not available:
+				e.printStackTrace();
+			}
 		}
 		
 		try
