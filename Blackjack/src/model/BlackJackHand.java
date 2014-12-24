@@ -21,6 +21,15 @@ public class BlackJackHand implements Hand
 	}
 	
 	/**
+	 * #QA created new constructor for testing purposes
+	 * @param ArrayList<BlackJackCard> cards
+	 */
+	public BlackJackHand(ArrayList<BlackJackCard> cards)
+	{
+		this.cards = cards;
+	}
+	
+	/**
 	 * calculate the hand score
 	 * @param gets the player type in order to know how to calculate the aces.
 	 */

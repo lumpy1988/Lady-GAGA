@@ -21,6 +21,17 @@ public class BlackJackPlayer implements Player
 	}
 	
 	/**
+	 * #QA created new constructor
+	 * BlackJackPlayer Constructor
+	 * @param PlayerType, BlackJackHand
+	 */
+	public BlackJackPlayer(PlayerType pt, BlackJackHand bh)
+	{
+		hand = bh;
+		playerType = pt;
+	}
+	
+	/**
 	 * clean the hand
 	 */
 	@Override

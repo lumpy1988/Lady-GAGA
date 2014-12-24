@@ -3,11 +3,8 @@ package tests;
 import static org.junit.Assert.*;
 import main.Blackjack;
 import model.PlayerType;
-
 import org.junit.Before;
 import org.junit.Test;
-
-import view.BlackJackView;
 
 /**
  * Case of JUnit tests for Player actions
@@ -21,9 +18,14 @@ public class AllTestsPlayer {
 	 */
 	@Before
 	public void beforeTests(){
+		
 		Blackjack.onTest = true;
 		Blackjack.main(null);
 		Blackjack.getView().clickDeal();
+		if (Blackjack.getGame().CheckStatus(PlayerType.USER) == 2)// make sure the game status is relevant for this tests
+			Blackjack.getView().clickStand();
+		else
+			fail("Game scenario made test irrelevant, please try again.");
 	}
 	
 	/**
@@ -32,13 +34,7 @@ public class AllTestsPlayer {
 	@Test
 	public void testStandDisabled() {
 		
-		if (Blackjack.getGame().CheckStatus(PlayerType.USER) == 2){
-			Blackjack.getView().clickStand();
-			
-			assertFalse("Stand button should be disabled at this state of the game", Blackjack.getView().isStandEnabled());
-		}
-		else
-			fail("Game scenario didn't go as expected. Test is invalid, try again.");
+		assertFalse("Stand button should be disabled at this state of the game", Blackjack.getView().isStandEnabled());
 	}
 	
 	/**
@@ -47,12 +43,6 @@ public class AllTestsPlayer {
 	@Test
 	public void testHitDisabled() {
 		
-		if (Blackjack.getGame().CheckStatus(PlayerType.USER) == 2){
-			Blackjack.getView().clickStand();
-			
-			assertFalse("Hit button should be disabled at this state of the game", Blackjack.getView().isHitEnabled());
-		}
-		else
-			fail("Game scenario didn't go as expected. Test is invalid, try again.");
+		assertFalse("Hit button should be disabled at this state of the game", Blackjack.getView().isHitEnabled());
 	}
 }

@@ -18,6 +18,7 @@ public class Blackjack
 	protected static BlackJackModel game;
 	protected static BlackJackView view;
 	protected static BlackJackController controller;
+	// testing flag for look and feel disabling during tests
 	public static boolean onTest = false;
 		
 	/**

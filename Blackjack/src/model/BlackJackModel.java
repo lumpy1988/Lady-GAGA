@@ -22,7 +22,18 @@ public class BlackJackModel implements CardGame
 		player = new BlackJackPlayer(PlayerType.USER);
 	}
 	
-	
+	/**
+	 * #QA created new constructor for testing purposes
+	 * @param bpd
+	 * @param bpu
+	 */
+	public BlackJackModel(BlackJackDealer dealer, BlackJackPlayer player)
+	{
+		this.dealer = dealer;
+		this.player = player;
+	}
+
+
 	/**
 	 * starts the game.
 	 */

@@ -43,7 +43,7 @@ public class AllTestsCard {
 			if (!c.isFacedUp())
 				up = false;
 		}
-		assertTrue("Some dealer's card must be faced up.\nAll player's cards must be faced up.", up);
+		assertTrue("Some dealer's card must be faced up. All player's cards must be faced up.", up);
 	}
 	
 	/**
@@ -73,6 +73,6 @@ public class AllTestsCard {
 			assertEquals("Player should have three cards at this point.", playerHand, 3);
 		}
 		else
-			fail("Game scenario didn't go as expected. Test is invalid, try again.");
+			fail("Game scenario made test irrelevant, please try again.");
 	}
 }
